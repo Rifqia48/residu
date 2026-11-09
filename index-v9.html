@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>E-LKM Statistika Bivariat — Kelas XI F8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            paper: '#FAF7F2',
+            surface: '#FFFFFF',
+            subtle: '#F3EFE6',
+            ink: '#1C1917',
+            muted: '#57534E',
+            border: '#E5DEC9',
+            accent: '#B45309',
+            accentSoft: '#FEF3C7',
+            teal: '#0F766E',
+            tealSoft: '#CCFBF1',
+            indigo: '#4338CA',
+            indigoSoft: '#E0E7FF',
+            rose: '#BE123C',
+            roseSoft: '#FFE4E6',
+            emerald: '#15803D',
+            emeraldSoft: '#DCFCE7',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      background-color: #FAF7F2;
+      color: #1C1917;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* Prevent iOS zoom ONLY on form inputs, NOT on buttons! */
+    input, select, textarea {
+      font-size: 1rem !important;
+      max-width: 100%;
+    }
+    button {
+      max-width: 100%;
+      touch-action: manipulation;
+    }
+    select {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      padding-right: 2.25rem !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2357534E' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .math-var {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 1.12em;
+    }
+    .math-eq {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.01em;
+    }
+    .m-bar {
+      display: inline-block;
+      position: relative;
+      line-height: 1;
+      padding: 0 0.04em;
+    }
+    .m-bar::before {
+      content: "";
+      position: absolute;
+      top: 0.11em;
+      left: 0;
+      right: 0;
+      border-top: 1.5px solid currentColor;
+    }
+    .math-frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      line-height: 1.15;
+      margin: 0 0.2em;
+    }
+    .math-frac > .num {
+      border-bottom: 1.5px solid currentColor;
+      padding: 0 0.25em 0.1em;
+    }
+    .math-frac > .den {
+      padding: 0.1em 0.25em 0;
+    }
+    .bottom-nav-fixed {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9990;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid #E5DEC9;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .top-bar-fixed {
+      position: sticky;
+      top: 0;
+      z-index: 9980;
+      background: rgba(250, 247, 242, 0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid #E5DEC9;
+    }
+    .nav-btn {
+      font-size: 0.65rem;
+      line-height: 1.1;
+      min-width: 0;
+    }
+    @media (min-width: 400px) {
+      .nav-btn {
+        font-size: 0.72rem;
+      }
+    }
+    .nav-btn.active {
+      color: #B45309;
+      background-color: #FEF3C7;
+      font-weight: 700;
+    }
+    .section-anchor {
+      scroll-margin-top: 4rem;
+    }
+  </style>
+</head>
+<body class="pb-24 antialiased selection:bg-amber-200 selection:text-stone-900">
+
+  <!-- STICKY TOP BAR -->
+  <header class="top-bar-fixed px-3.5 py-2">
+    <div class="max-w-3xl mx-auto flex items-center justify-between gap-2">
+      <button onclick="toggleGroupDrawer()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-ink text-paper text-xs sm:text-sm font-semibold shadow-xs active:scale-95 transition">
+        <span id="topGroupLabel" class="truncate max-w-[150px] sm:max-w-none">Pilih Kelompok</span>
+        <svg class="w-3.5 h-3.5 text-amber-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+
+      <div class="flex items-center gap-1.5">
+        <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emeraldSoft border border-emerald/20 text-emerald text-xs font-bold tracking-wide">
+          <span>🏁</span>
+          <span id="progressBadge">0/8</span>
+        </div>
+        <button onclick="resetAllProgress()" title="Reset Isian" class="w-7 h-7 rounded-full border border-border bg-surface text-muted hover:text-rose text-xs flex items-center justify-center">
+          ↺
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SLIDE-DOWN GROUP SELECTOR DRAWER -->
+  <div id="groupDrawer" class="hidden fixed inset-0 z-[9995] bg-black/50 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-paper w-full max-w-lg rounded-t-3xl sm:rounded-2xl border border-border shadow-2xl p-4 sm:p-5 max-h-[88vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-border">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-accent">Kelas XI F8 • SMA N 6 Yogyakarta</span>
+          <h2 class="text-base sm:text-lg font-bold text-ink">Pilih Kelompok & Pembagian Tugas</h2>
+        </div>
+        <button onclick="toggleGroupDrawer()" class="w-8 h-8 rounded-full bg-subtle text-ink text-sm font-bold flex items-center justify-center">✕</button>
+      </div>
+
+      <div class="mt-3.5">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-muted mb-1.5">Pilih Kelompok (1 – 7):</label>
+        <select id="groupSelect" onchange="selectGroup(this.value)" class="w-full h-11 px-3 rounded-xl border border-border bg-surface font-semibold text-ink">
+          <option value="">-- Ketuk untuk memilih kelompok --</option>
+          <option value="1">Kelompok 1 (Tutor: Tazkia Hanifa)</option>
+          <option value="2">Kelompok 2 (Tutor: Latifah Jehanaira)</option>
+          <option value="3">Kelompok 3 (Tutor: Kinanthi Sekar)</option>
+          <option value="4">Kelompok 4 (Tutor: M. Rasikh Nur Fakhri)</option>
+          <option value="5">Kelompok 5 (Tutor: Githa Aisha)</option>
+          <option value="6">Kelompok 6 (Tutor: Felindias Icna)</option>
+          <option value="7">Kelompok 7 (Tutor: Naura Rania)</option>
+        </select>
+      </div>
+
+      <div id="groupRosterBox" class="mt-4 space-y-2 hidden">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-muted">Pembagian Titik Data:</span>
+          <button onclick="rotateTasks()" class="text-xs font-bold text-accent underline">🔄 Tukar Urutan Titik</button>
+        </div>
+        <div id="rosterList" class="space-y-1.5 text-xs"></div>
+      </div>
+
+      <button onclick="toggleGroupDrawer()" class="mt-4 w-full h-10 rounded-xl bg-ink text-paper text-sm font-semibold">
+        Simpan & Lanjutkan Kerja
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-3xl mx-auto px-3.5 sm:px-4 pt-4 space-y-5 sm:space-y-7">
+
+    <!-- HERO HEADER -->
+    <section class="bg-surface rounded-2xl border border-border p-4 sm:p-5 shadow-xs">
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-accentSoft text-accent text-[11px] font-bold uppercase tracking-wider mb-1.5">
+        Statistika Bivariat • LKM Interaktif
+      </div>
+      <h1 class="font-serif text-2xl sm:text-3xl md:text-4xl text-ink leading-snug">
+        Garis Mana yang Paling Pas? Dari Titik Panas hingga Kurs
+      </h1>
+      <p class="mt-1.5 text-xs sm:text-sm text-muted leading-relaxed">
+        Gunakan halaman ini untuk memandu penyelidikan kelompokmu dan memeriksa hitungan. <strong>Seluruh grafik, tabel, dan langkah jawaban tetap wajib ditulis di buku tulis masing-masing.</strong>
+      </p>
+
+      <!-- Active Group Banner -->
+      <div id="activeGroupBanner" class="mt-3.5 p-3 rounded-xl bg-subtle border border-border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        <div class="text-xs text-muted leading-relaxed">
+          <span class="font-bold text-ink block sm:inline">Belum memilih kelompok.</span>
+          Ketuk tombol di bawah agar nama anggota otomatis muncul di tiap kartu tahun.
+        </div>
+        <button onclick="toggleGroupDrawer()" class="w-full sm:w-auto shrink-0 px-3.5 py-2 rounded-lg bg-accent text-white text-xs sm:text-sm font-bold shadow-xs active:scale-98 transition">
+          Atur Kelompok Sekarang
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 0: PEMANTIK & GRAFIK INTERAKTIF -->
+    <section id="sec-pemantik" class="section-anchor bg-surface rounded-2xl border border-border p-4 sm:p-5 shadow-xs space-y-4">
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-wider text-accent">Tahap 0 • Apersepsi & Pemantik</span>
+        <h2 class="text-lg sm:text-xl font-bold text-ink mt-0.5">Data Titik Panas & Luas Karhutla (2018–2021)</h2>
+      </div>
+
+      <p class="text-xs sm:text-sm text-muted leading-relaxed">
+        Berikut adalah data pemantauan satelit jumlah titik panas (<span class="math-var">x</span>, dalam <strong>ribu titik</strong>) dan luas kebakaran hutan & lahan (<span class="math-var">y</span>, dalam <strong>ratus ribu hektare</strong>) dari KLHK:
+      </p>
+
+      <!-- Compact 4-Year Data Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <div class="p-2.5 rounded-xl bg-subtle border border-border">
+          <div class="text-[11px] font-bold text-muted">Tahun 2018</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-ink mt-0.5">x = 9,2</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-accent">y = 5,1</div>
+          <div class="text-[11px] text-muted mt-1 truncate" data-member-slot="0">Anggota 1</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-subtle border border-border">
+          <div class="text-[11px] font-bold text-muted">Tahun 2019</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-ink mt-0.5">x = 29,3</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-accent">y = 16,5</div>
+          <div class="text-[11px] text-muted mt-1 truncate" data-member-slot="1">Anggota 2</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-subtle border border-border">
+          <div class="text-[11px] font-bold text-muted">Tahun 2020</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-ink mt-0.5">x = 2,6</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-accent">y = 3,0</div>
+          <div class="text-[11px] text-muted mt-1 truncate" data-member-slot="2">Anggota 3</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-subtle border border-border">
+          <div class="text-[11px] font-bold text-muted">Tahun 2021</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-ink mt-0.5">x = 1,5</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-accent">y = 3,6</div>
+          <div class="text-[11px] text-muted mt-1 truncate" data-member-slot="3">Anggota 4</div>
+        </div>
+      </div>
+
+      <!-- Interactive SVG Scatter Plot -->
+      <div class="rounded-2xl border border-border bg-paper p-3 space-y-2.5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-muted">Diagram Pencar & 3 Garis Taksiran</span>
+          <div class="grid grid-cols-4 sm:flex gap-1.5">
+            <button onclick="togglePlotLine('A')" id="btnLineA" class="px-2 py-1 rounded-lg text-[11px] font-bold bg-indigo text-white text-center">Garis A</button>
+            <button onclick="togglePlotLine('B')" id="btnLineB" class="px-2 py-1 rounded-lg text-[11px] font-bold bg-teal text-white text-center">Garis B</button>
+            <button onclick="togglePlotLine('C')" id="btnLineC" class="px-2 py-1 rounded-lg text-[11px] font-bold bg-rose text-white text-center">Garis C</button>
+            <button onclick="togglePlotLine('R')" id="btnLineR" class="px-2 py-1 rounded-lg text-[11px] font-bold bg-subtle text-muted border border-border text-center">Regresi</button>
+          </div>
+        </div>
+
+        <div class="w-full overflow-hidden rounded-xl bg-white border border-border">
+          <svg id="scatterSvg" viewBox="0 0 420 250" class="w-full h-auto block select-none"></svg>
+        </div>
+
+        <div id="pointInspector" class="text-xs text-muted bg-surface px-3 py-2 rounded-lg border border-border leading-relaxed">
+          💡 <strong>Tips:</strong> Ketuk salah satu titik data pada grafik di atas untuk melihat koordinat (<span class="math-var">x, y</span>). Segmen garis vertikal residu akan menyala setelah hitunganmu pada Investigasi 1 terverifikasi.
+        </div>
+      </div>
+
+      <!-- Prediksi Awal -->
+      <div class="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2.5">
+        <h3 class="text-xs sm:text-sm font-bold text-ink">🤔 Tantangan Tebak Dulu, Buktikan Kemudian:</h3>
+        <p class="text-xs text-muted leading-relaxed">
+          Tiga sekawan menggambar tiga garis taksiran berbeda: <strong>Garis A</strong> (<span class="math-eq">ŷ = 2 + 0,4x</span>), <strong>Garis B</strong> (<span class="math-eq">ŷ = 1,5 + 0,5x</span>), dan <strong>Garis C</strong> (<span class="math-eq">ŷ = 3,9 + 0,3x</span>). Sebelum menghitung, pilih satu garis yang menurut kelompokmu paling pas dan tulis 1 kalimat alasannya di buku tulis!
+        </p>
+        <div class="space-y-2">
+          <select id="predLineSelect" onchange="savePrediction()" class="w-full h-11 px-3 rounded-xl border border-amber-300 bg-white font-semibold text-ink">
+            <option value="">-- Pilih tebakan awal kelompokmu --</option>
+            <option value="A">Kami menebak Garis A (ŷ = 2 + 0,4x)</option>
+            <option value="B">Kami menebak Garis B (ŷ = 1,5 + 0,5x)</option>
+            <option value="C">Kami menebak Garis C (ŷ = 3,9 + 0,3x)</option>
+          </select>
+          <div id="predSavedNote" class="hidden text-xs font-semibold text-emerald">
+            ✓ Tebakan awal tersimpan! Mari kita buktikan dengan hitungan angka pada Investigasi 1 & 2.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: INVESTIGASI 1 (MENGENAL RESIDU) -->
+    <section id="sec-inv1" class="section-anchor bg-surface rounded-2xl border border-border p-4 sm:p-5 shadow-xs space-y-4">
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-wider text-indigo">Investigasi 1 • 12 Menit</span>
+        <h2 class="text-lg sm:text-xl font-bold text-ink mt-0.5">Mengenal Residu pada Garis A</h2>
+        <p class="text-xs sm:text-sm text-muted mt-1 leading-relaxed">
+          Gambarlah diagram pencar dan <strong>Garis A: <span class="math-eq text-indigo">ŷ = 2 + 0,4x</span></strong> di buku tulismu. Setiap anggota menghitung nilai prediksi (<span class="math-var">ŷ</span>) dan residu (<span class="math-eq font-semibold text-ink">e = y − ŷ</span>) untuk satu tahun.
+        </p>
+      </div>
+
+      <!-- 3-Stage Scaffolding Compact Grid -->
+      <div class="grid grid-cols-3 gap-1.5 sm:flex sm:flex-wrap sm:gap-2">
+        <button onclick="toggleHint('inv1-h1')" class="px-2.5 py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] sm:text-xs font-bold text-center">
+          💡 1. Ide
+        </button>
+        <button onclick="toggleHint('inv1-h2')" class="px-2.5 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-900 text-[11px] sm:text-xs font-bold text-center">
+          🧭 2. Langkah
+        </button>
+        <button onclick="toggleHint('inv1-h3')" class="px-2.5 py-2 rounded-xl bg-purple-50 border border-purple-200 text-purple-900 text-[11px] sm:text-xs font-bold text-center">
+          📘 3. Contoh
+        </button>
+      </div>
+
+      <div id="inv1-h1" class="hidden p-3 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-stone-800 leading-relaxed">
+        <strong>Ide Konsep:</strong> Residu (<span class="math-var">e</span>) adalah jarak vertikal antara nilai data sebenarnya (<span class="math-var">y</span>) dan nilai prediksi pada garis (<span class="math-var">ŷ</span>). Ingat urutannya jangan terbalik: <strong>Data Asli dikurangi Prediksi (<span class="math-eq">e = y − ŷ</span>)</strong>.
+      </div>
+      <div id="inv1-h2" class="hidden p-3 rounded-xl bg-sky-50/80 border border-sky-200 text-xs text-stone-800 leading-relaxed">
+        <strong>Langkah Hitung:</strong><br>
+        1. Substitusikan nilai <span class="math-var">x</span> ke persamaan Garis A: <span class="math-eq">ŷ = 2 + 0,4x</span>.<br>
+        2. Hitung <span class="math-eq">e = y − ŷ</span>.<br>
+        3. Jika <span class="math-eq">e &gt; 0</span> (positif), titik data berada <strong>di atas garis</strong>. Jika <span class="math-eq">e &lt; 0</span> (negatif), titik data berada <strong>di bawah garis</strong>.
+      </div>
+      <div id="inv1-h3" class="hidden p-3 rounded-xl bg-purple-50/80 border border-purple-200 text-xs text-stone-800 leading-relaxed">
+        <strong>Contoh Serupa:</strong> Misalkan terdapat titik <span class="math-eq">(x = 5 ; y = 3,5)</span> pada garis <span class="math-eq">ŷ = 2 + 0,4x</span>:<br>
+        • Prediksi <span class="math-eq">ŷ = 2 + 0,4(5) = 2 + 2 = 4,0</span><br>
+        • Residu <span class="math-eq">e = y − ŷ = 3,5 − 4,0 = −0,5</span> (karena negatif, titik berada <strong>di bawah garis</strong>).
+      </div>
+
+      <!-- Year Cards for Investigasi 1 -->
+      <div class="space-y-3" id="inv1CardsContainer">
+        <!-- 2018 -->
+        <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2.5">
+          <div class="flex items-center justify-between gap-2 pb-2 border-b border-border">
+            <div class="min-w-0">
+              <span class="text-sm sm:text-base font-bold text-ink">Tahun 2018</span>
+              <span class="block text-xs font-semibold text-indigo truncate" data-member-slot="0">Anggota 1</span>
+            </div>
+            <span class="shrink-0 px-2.5 py-1 rounded-lg bg-surface border border-border font-mono text-xs font-bold text-ink">
+              x = 9,2 ; y = 5,1
+            </span>
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-semibold text-muted mb-1">Prediksi <span class="math-eq text-ink">ŷ = 2+0,4x</span></label>
+              <input id="i1_yhat_0" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-muted mb-1">Residu <span class="math-eq text-ink">e = y − ŷ</span></label>
+              <input id="i1_e_0" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+          </div>
+          <div class="space-y-2 pt-0.5">
+            <select id="i1_pos_0" class="w-full h-10 px-3 rounded-xl border border-border bg-surface text-ink font-medium">
+              <option value="">-- Posisi titik terhadap garis --</option>
+              <option value="under">Di bawah garis (e negatif)</option>
+              <option value="over">Di atas garis (e positif)</option>
+            </select>
+            <button onclick="checkInv1Row(0)" class="w-full py-2.5 rounded-xl bg-indigo text-white font-bold text-xs sm:text-sm shadow-xs active:scale-[0.99] transition">
+              Cek Titik Tahun 2018
+            </button>
+          </div>
+          <div id="i1_fb_0" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+        </div>
+
+        <!-- 2019 -->
+        <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2.5">
+          <div class="flex items-center justify-between gap-2 pb-2 border-b border-border">
+            <div class="min-w-0">
+              <span class="text-sm sm:text-base font-bold text-ink">Tahun 2019</span>
+              <span class="block text-xs font-semibold text-indigo truncate" data-member-slot="1">Anggota 2</span>
+            </div>
+            <span class="shrink-0 px-2.5 py-1 rounded-lg bg-surface border border-border font-mono text-xs font-bold text-ink">
+              x = 29,3 ; y = 16,5
+            </span>
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-semibold text-muted mb-1">Prediksi <span class="math-eq text-ink">ŷ = 2+0,4x</span></label>
+              <input id="i1_yhat_1" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-muted mb-1">Residu <span class="math-eq text-ink">e = y − ŷ</span></label>
+              <input id="i1_e_1" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+          </div>
+          <div class="space-y-2 pt-0.5">
+            <select id="i1_pos_1" class="w-full h-10 px-3 rounded-xl border border-border bg-surface text-ink font-medium">
+              <option value="">-- Posisi titik terhadap garis --</option>
+              <option value="under">Di bawah garis (e negatif)</option>
+              <option value="over">Di atas garis (e positif)</option>
+            </select>
+            <button onclick="checkInv1Row(1)" class="w-full py-2.5 rounded-xl bg-indigo text-white font-bold text-xs sm:text-sm shadow-xs active:scale-[0.99] transition">
+              Cek Titik Tahun 2019
+            </button>
+          </div>
+          <div id="i1_fb_1" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+        </div>
+
+        <!-- 2020 -->
+        <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2.5">
+          <div class="flex items-center justify-between gap-2 pb-2 border-b border-border">
+            <div class="min-w-0">
+              <span class="text-sm sm:text-base font-bold text-ink">Tahun 2020</span>
+              <span class="block text-xs font-semibold text-indigo truncate" data-member-slot="2">Anggota 3</span>
+            </div>
+            <span class="shrink-0 px-2.5 py-1 rounded-lg bg-surface border border-border font-mono text-xs font-bold text-ink">
+              x = 2,6 ; y = 3,0
+            </span>
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-semibold text-muted mb-1">Prediksi <span class="math-eq text-ink">ŷ = 2+0,4x</span></label>
+              <input id="i1_yhat_2" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-muted mb-1">Residu <span class="math-eq text-ink">e = y − ŷ</span></label>
+              <input id="i1_e_2" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+          </div>
+          <div class="space-y-2 pt-0.5">
+            <select id="i1_pos_2" class="w-full h-10 px-3 rounded-xl border border-border bg-surface text-ink font-medium">
+              <option value="">-- Posisi titik terhadap garis --</option>
+              <option value="under">Di bawah garis (e negatif)</option>
+              <option value="over">Di atas garis (e positif)</option>
+            </select>
+            <button onclick="checkInv1Row(2)" class="w-full py-2.5 rounded-xl bg-indigo text-white font-bold text-xs sm:text-sm shadow-xs active:scale-[0.99] transition">
+              Cek Titik Tahun 2020
+            </button>
+          </div>
+          <div id="i1_fb_2" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+        </div>
+
+        <!-- 2021 -->
+        <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2.5">
+          <div class="flex items-center justify-between gap-2 pb-2 border-b border-border">
+            <div class="min-w-0">
+              <span class="text-sm sm:text-base font-bold text-ink">Tahun 2021</span>
+              <span class="block text-xs font-semibold text-indigo truncate" data-member-slot="3">Anggota 4</span>
+            </div>
+            <span class="shrink-0 px-2.5 py-1 rounded-lg bg-surface border border-border font-mono text-xs font-bold text-ink">
+              x = 1,5 ; y = 3,6
+            </span>
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-semibold text-muted mb-1">Prediksi <span class="math-eq text-ink">ŷ = 2+0,4x</span></label>
+              <input id="i1_yhat_3" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-muted mb-1">Residu <span class="math-eq text-ink">e = y − ŷ</span></label>
+              <input id="i1_e_3" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+          </div>
+          <div class="space-y-2 pt-0.5">
+            <select id="i1_pos_3" class="w-full h-10 px-3 rounded-xl border border-border bg-surface text-ink font-medium">
+              <option value="">-- Posisi titik terhadap garis --</option>
+              <option value="under">Di bawah garis (e negatif)</option>
+              <option value="over">Di atas garis (e positif)</option>
+            </select>
+            <button onclick="checkInv1Row(3)" class="w-full py-2.5 rounded-xl bg-indigo text-white font-bold text-xs sm:text-sm shadow-xs active:scale-[0.99] transition">
+              Cek Titik Tahun 2021
+            </button>
+          </div>
+          <div id="i1_fb_3" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+        </div>
+      </div>
+
+      <!-- Total Sigma e Garis A -->
+      <div class="p-3.5 rounded-2xl bg-indigoSoft/60 border border-indigo/20 space-y-2.5">
+        <div class="space-y-1">
+          <span class="inline-block px-2 py-0.5 rounded-md bg-white text-indigo text-[11px] font-bold border border-indigo/20" data-member-slot="4">
+            Koordinator & Tutor Sebaya
+          </span>
+          <h3 class="text-sm font-bold text-ink">Jumlah Residu Garis A (<span class="math-eq">Σe</span>)</h3>
+        </div>
+        <p class="text-xs text-muted">
+          Jumlahkan keempat residu di atas: <span class="math-eq">Σe = e<sub>2018</sub> + e<sub>2019</sub> + e<sub>2020</sub> + e<sub>2021</sub></span>
+        </p>
+        <div class="space-y-2">
+          <input id="i1_sum_e" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-3 rounded-xl border border-indigo/30 bg-white font-mono text-ink" />
+          <button onclick="checkInv1Sum()" class="w-full py-2.5 rounded-xl bg-indigo text-white font-bold text-xs sm:text-sm">
+            Verifikasi Jumlah Residu (Σe)
+          </button>
+        </div>
+        <div id="i1_sum_fb" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: INVESTIGASI 2 (MEMBANDINGKAN GARIS DENGAN KUADRAT RESIDU) -->
+    <section id="sec-inv2" class="section-anchor bg-surface rounded-2xl border border-border p-4 sm:p-5 shadow-xs space-y-4">
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-wider text-teal">Investigasi 2 • 13 Menit</span>
+        <h2 class="text-lg sm:text-xl font-bold text-ink mt-0.5">Membandingkan Garis dengan Kuadrat Residu (<span class="math-eq">Σe²</span>)</h2>
+        <p class="text-xs sm:text-sm text-muted mt-1 leading-relaxed">
+          Bagilah kembali tugas menghitung residu untuk <strong>Garis B (<span class="math-eq">ŷ = 1,5 + 0,5x</span>)</strong> dan <strong>Garis C (<span class="math-eq">ŷ = 3,9 + 0,3x</span>)</strong>, lalu selidiki mengapa <span class="math-eq">Σe</span> saja bisa menipu!
+        </p>
+      </div>
+
+      <!-- 3-Stage Scaffolding Inv 2 -->
+      <div class="grid grid-cols-3 gap-1.5 sm:flex sm:flex-wrap sm:gap-2">
+        <button onclick="toggleHint('inv2-h1')" class="px-2.5 py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] sm:text-xs font-bold text-center">
+          💡 1. Ide
+        </button>
+        <button onclick="toggleHint('inv2-h2')" class="px-2.5 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-900 text-[11px] sm:text-xs font-bold text-center">
+          🧭 2. Langkah
+        </button>
+        <button onclick="toggleHint('inv2-h3')" class="px-2.5 py-2 rounded-xl bg-purple-50 border border-purple-200 text-purple-900 text-[11px] sm:text-xs font-bold text-center">
+          📘 3. Contoh
+        </button>
+      </div>
+
+      <div id="inv2-h1" class="hidden p-3 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-stone-800 leading-relaxed">
+        <strong>Ide Konsep:</strong> Residu positif (di atas garis) dan residu negatif (di bawah garis) dapat <strong>saling meniadakan</strong> saat dijumlahkan biasa (<span class="math-eq">Σe</span> mendekati nol meskipun garisnya melenceng jauh). Agar semua residu bernilai positif, kita mengkuadratkan tiap residu (<span class="math-eq">e²</span>) lalu menjumlahkannya (<span class="math-eq">Σe²</span>).
+      </div>
+      <div id="inv2-h2" class="hidden p-3 rounded-xl bg-sky-50/80 border border-sky-200 text-xs text-stone-800 leading-relaxed">
+        <strong>Langkah Kerja:</strong><br>
+        1. Hitung residu <span class="math-eq">e = y − ŷ</span> untuk Garis B dan Garis C pada titik tahun bagianmu.<br>
+        2. Kuadratkan masing-masing residu (<span class="math-eq">e²</span>) kemudian jumlahkan untuk keempat tahun (<span class="math-eq">Σe²</span>).<br>
+        3. Garis yang paling pas (<em>best fit</em>) di antara ketiganya adalah garis dengan <strong>jumlah kuadrat residu (<span class="math-eq">Σe²</span>) terkecil</strong>.
+      </div>
+      <div id="inv2-h3" class="hidden p-3 rounded-xl bg-purple-50/80 border border-purple-200 text-xs text-stone-800 leading-relaxed">
+        <strong>Contoh Serupa:</strong> Misalkan pada suatu titik diperoleh residu <span class="math-eq">e = −1,20</span>, maka <span class="math-eq">e² = (−1,20)² = +1,44</span> (ingat: bilangan negatif dikuadratkan hasilnya selalu <strong>positif</strong>!). Jumlahkan keempat nilai <span class="math-eq">e²</span> untuk memperoleh <span class="math-eq">Σe²</span>.
+      </div>
+
+      <!-- Sub-step 2A: Hitung Residu Garis B dan C per Tahun -->
+      <div class="space-y-2.5">
+        <h3 class="text-xs sm:text-sm font-bold text-ink">Langkah 1 — Hitung Residu (<span class="math-eq">e = y − ŷ</span>) Garis B dan Garis C:</h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <!-- 2018 -->
+          <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2">
+            <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-border">
+              <span class="font-bold text-xs sm:text-sm text-ink">2018 (<span class="math-eq">x=9,2; y=5,1</span>)</span>
+              <span class="text-[11px] font-semibold text-teal truncate" data-member-slot="0">Anggota 1</span>
+            </div>
+            <div>
+              <label class="block text-[11px] text-muted mb-1">Garis B (<span class="math-eq">ŷ = 1,5 + 0,5x</span>) → <span class="math-eq font-bold text-ink">e<sub>B</sub></span>:</label>
+              <input id="i2_eb_0" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] text-muted mb-1">Garis C (<span class="math-eq">ŷ = 3,9 + 0,3x</span>) → <span class="math-eq font-bold text-ink">e<sub>C</sub></span>:</label>
+              <input id="i2_ec_0" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <button onclick="checkInv2Year(0)" class="w-full py-2 rounded-xl bg-teal text-white font-bold text-xs">Cek Residu 2018</button>
+            <div id="i2_yfb_0" class="hidden text-xs p-2 rounded-lg font-medium"></div>
+          </div>
+
+          <!-- 2019 -->
+          <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2">
+            <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-border">
+              <span class="font-bold text-xs sm:text-sm text-ink">2019 (<span class="math-eq">x=29,3; y=16,5</span>)</span>
+              <span class="text-[11px] font-semibold text-teal truncate" data-member-slot="1">Anggota 2</span>
+            </div>
+            <div>
+              <label class="block text-[11px] text-muted mb-1">Garis B (<span class="math-eq">ŷ = 1,5 + 0,5x</span>) → <span class="math-eq font-bold text-ink">e<sub>B</sub></span>:</label>
+              <input id="i2_eb_1" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] text-muted mb-1">Garis C (<span class="math-eq">ŷ = 3,9 + 0,3x</span>) → <span class="math-eq font-bold text-ink">e<sub>C</sub></span>:</label>
+              <input id="i2_ec_1" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <button onclick="checkInv2Year(1)" class="w-full py-2 rounded-xl bg-teal text-white font-bold text-xs">Cek Residu 2019</button>
+            <div id="i2_yfb_1" class="hidden text-xs p-2 rounded-lg font-medium"></div>
+          </div>
+
+          <!-- 2020 -->
+          <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2">
+            <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-border">
+              <span class="font-bold text-xs sm:text-sm text-ink">2020 (<span class="math-eq">x=2,6; y=3,0</span>)</span>
+              <span class="text-[11px] font-semibold text-teal truncate" data-member-slot="2">Anggota 3</span>
+            </div>
+            <div>
+              <label class="block text-[11px] text-muted mb-1">Garis B (<span class="math-eq">ŷ = 1,5 + 0,5x</span>) → <span class="math-eq font-bold text-ink">e<sub>B</sub></span>:</label>
+              <input id="i2_eb_2" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] text-muted mb-1">Garis C (<span class="math-eq">ŷ = 3,9 + 0,3x</span>) → <span class="math-eq font-bold text-ink">e<sub>C</sub></span>:</label>
+              <input id="i2_ec_2" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <button onclick="checkInv2Year(2)" class="w-full py-2 rounded-xl bg-teal text-white font-bold text-xs">Cek Residu 2020</button>
+            <div id="i2_yfb_2" class="hidden text-xs p-2 rounded-lg font-medium"></div>
+          </div>
+
+          <!-- 2021 -->
+          <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2">
+            <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-border">
+              <span class="font-bold text-xs sm:text-sm text-ink">2021 (<span class="math-eq">x=1,5; y=3,6</span>)</span>
+              <span class="text-[11px] font-semibold text-teal truncate" data-member-slot="3">Anggota 4</span>
+            </div>
+            <div>
+              <label class="block text-[11px] text-muted mb-1">Garis B (<span class="math-eq">ŷ = 1,5 + 0,5x</span>) → <span class="math-eq font-bold text-ink">e<sub>B</sub></span>:</label>
+              <input id="i2_eb_3" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] text-muted mb-1">Garis C (<span class="math-eq">ŷ = 3,9 + 0,3x</span>) → <span class="math-eq font-bold text-ink">e<sub>C</sub></span>:</label>
+              <input id="i2_ec_3" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <button onclick="checkInv2Year(3)" class="w-full py-2 rounded-xl bg-teal text-white font-bold text-xs">Cek Residu 2021</button>
+            <div id="i2_yfb_3" class="hidden text-xs p-2 rounded-lg font-medium"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pertanyaan Pengarah Konseptual -->
+      <div class="p-3.5 rounded-2xl bg-roseSoft/60 border border-rose/20 space-y-2">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-rose">Pertanyaan Kritis</span>
+        <p class="text-xs sm:text-sm font-bold text-ink leading-relaxed">
+          Jika dijumlahkan biasa (<span class="math-eq">Σe</span>), Garis A = <span class="math-eq">+3,16</span>, Garis B = <span class="math-eq">+0,90</span>, sedangkan Garis C = <span class="math-eq">−0,18</span> (paling dekat ke nol). Apakah berarti Garis C paling pas?
+        </p>
+        <select id="i2_trap_q" onchange="checkInv2Trap()" class="w-full h-10 px-3 rounded-xl border border-rose/30 bg-white text-ink font-medium">
+          <option value="">-- Pilih jawaban kelompokmu --</option>
+          <option value="wrong">Ya, karena Σe mendekati nol berarti tanpa salah</option>
+          <option value="right">Tidak! Residu (+) & (−) saling meniadakan</option>
+        </select>
+        <div id="i2_trap_fb" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+      </div>
+
+      <!-- Langkah 2: Bandingkan Jumlah Kuadrat Residu (Σe²) -->
+      <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-3">
+        <div class="space-y-1">
+          <span class="inline-block px-2 py-0.5 rounded-md bg-surface text-teal text-[11px] font-bold border border-border" data-member-slot="4">
+            Koordinator & Tutor Sebaya
+          </span>
+          <h3 class="text-xs sm:text-sm font-bold text-ink">Langkah 2 — Jumlah Kuadrat Residu (<span class="math-eq">Σe²</span>) Ketiga Garis:</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <div class="p-3 rounded-xl bg-surface border border-border">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-indigo">Garis A (<span class="math-eq">2 + 0,4x</span>)</span>
+              <span class="text-[11px] text-muted font-mono">Σe = 3,16</span>
+            </div>
+            <input id="i2_sse_a" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="mt-1.5 w-full h-10 px-2.5 rounded-xl border border-border bg-paper font-mono text-ink" />
+          </div>
+
+          <div class="p-3 rounded-xl bg-surface border border-border">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-teal">Garis B (<span class="math-eq">1,5 + 0,5x</span>)</span>
+              <span class="text-[11px] text-muted font-mono">Σe = 0,90</span>
+            </div>
+            <input id="i2_sse_b" type="text" inputmode="decimal" placeholder="Contoh: 1,234" class="mt-1.5 w-full h-10 px-2.5 rounded-xl border border-border bg-paper font-mono text-ink" />
+          </div>
+
+          <div class="p-3 rounded-xl bg-surface border border-border">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-rose">Garis C (<span class="math-eq">3,9 + 0,3x</span>)</span>
+              <span class="text-[11px] text-muted font-mono">Σe = −0,18</span>
+            </div>
+            <input id="i2_sse_c" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="mt-1.5 w-full h-10 px-2.5 rounded-xl border border-border bg-paper font-mono text-ink" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-muted mb-1">Berdasarkan <span class="math-eq">Σe²</span> terkecil, manakah garis terbaik di antara A, B, dan C?</label>
+          <select id="i2_best_line" class="w-full h-10 px-3 rounded-xl border border-border bg-surface text-ink font-semibold">
+            <option value="">-- Pilih garis dengan Σe² terkecil --</option>
+            <option value="A">Garis A (ŷ = 2 + 0,4x)</option>
+            <option value="B">Garis B (ŷ = 1,5 + 0,5x)</option>
+            <option value="C">Garis C (ŷ = 3,9 + 0,3x)</option>
+          </select>
+        </div>
+
+        <button onclick="checkInv2SSE()" class="w-full py-2.5 rounded-xl bg-teal text-white font-bold text-xs sm:text-sm">
+          Verifikasi Perbandingan Σe²
+        </button>
+        <div id="i2_sse_fb" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INVESTIGASI 3 (MENEMUKAN GARIS REGRESI LINEAR) -->
+    <section id="sec-inv3" class="section-anchor bg-surface rounded-2xl border border-border p-4 sm:p-5 shadow-xs space-y-4">
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-wider text-purple-700">Investigasi 3 • 15 Menit</span>
+        <h2 class="text-lg sm:text-xl font-bold text-ink mt-0.5">Menemukan Persamaan Garis Regresi Linear (<span class="math-eq">ŷ = a + bx</span>)</h2>
+        <p class="text-xs sm:text-sm text-muted mt-1 leading-relaxed">
+          Setelah memilih garis terbaik di antara A, B, dan C pada Investigasi 2, adakah garis lain dengan jumlah kuadrat residu (<span class="math-eq">Σe<sup>2</sup></span>) yang <strong>lebih kecil lagi</strong>? Mari temukan <strong>Garis Regresi Linear</strong>!
+        </p>
+      </div>
+
+      <!-- Rumus Box Clean -->
+      <div class="p-3.5 rounded-2xl bg-purple-50/70 border border-purple-200 space-y-2 text-xs text-stone-800">
+        <div class="font-bold text-purple-950">Rumus Garis Regresi Linear (<span class="math-eq">ŷ = a + bx</span>):</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div class="math-eq bg-white px-3 py-2 rounded-xl border border-purple-200 text-ink text-xs sm:text-sm flex items-center justify-center sm:justify-start">
+            <span>b =</span>
+            <span class="math-frac">
+              <span class="num">Σ(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>)</span>
+              <span class="den">Σ(x − <span class="m-bar">x</span>)<sup>2</sup></span>
+            </span>
+          </div>
+          <div class="math-eq bg-white px-3 py-2 rounded-xl border border-purple-200 text-ink text-xs sm:text-sm flex items-center justify-center sm:justify-start">
+            <span>a = <span class="m-bar">y</span> − b · <span class="m-bar">x</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Stage Scaffolding Inv 3 -->
+      <div class="grid grid-cols-3 gap-1.5 sm:flex sm:flex-wrap sm:gap-2">
+        <button onclick="toggleHint('inv3-h1')" class="px-2.5 py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] sm:text-xs font-bold text-center">
+          💡 1. Rata-rata
+        </button>
+        <button onclick="toggleHint('inv3-h2')" class="px-2.5 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-900 text-[11px] sm:text-xs font-bold text-center">
+          🧭 2. Tabel
+        </button>
+        <button onclick="toggleHint('inv3-h3')" class="px-2.5 py-2 rounded-xl bg-purple-50 border border-purple-200 text-purple-900 text-[11px] sm:text-xs font-bold text-center">
+          📘 3. Contoh
+        </button>
+      </div>
+
+      <div id="inv3-h1" class="hidden p-3 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-stone-800 leading-relaxed">
+        <strong>Cara Menghitung Rata-Rata:</strong><br>
+        • Jumlahkan keempat nilai <span class="math-eq">x</span> lalu bagi 4: <span class="math-eq"><span class="m-bar">x</span> = (x<sub>2018</sub> + x<sub>2019</sub> + x<sub>2020</sub> + x<sub>2021</sub>) ÷ 4</span><br>
+        • Jumlahkan keempat nilai <span class="math-eq">y</span> lalu bagi 4: <span class="math-eq"><span class="m-bar">y</span> = (y<sub>2018</sub> + y<sub>2019</sub> + y<sub>2020</sub> + y<sub>2021</sub>) ÷ 4</span>
+      </div>
+      <div id="inv3-h2" class="hidden p-3 rounded-xl bg-sky-50/80 border border-sky-200 text-xs text-stone-800 leading-relaxed">
+        <strong>Urutan Kolom di Buku Tulis:</strong> Buatlah tabel dengan kolom <span class="math-eq">(x − <span class="m-bar">x</span>)</span>, <span class="math-eq">(y − <span class="m-bar">y</span>)</span>, hasil kali <span class="math-eq">(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>)</span>, dan kuadrat <span class="math-eq">(x − <span class="m-bar">x</span>)<sup>2</sup></span>. Hati-hati: negatif dikali negatif hasilnya <strong>positif</strong>!
+      </div>
+      <div id="inv3-h3" class="hidden p-3 rounded-xl bg-purple-50/80 border border-purple-200 text-xs text-stone-800 leading-relaxed">
+        <strong>Contoh Serupa (Misalkan titik <span class="math-eq">x = 4,0 ; y = 3,0</span> dengan <span class="math-eq"><span class="m-bar">x</span> = 5,5</span> dan <span class="math-eq"><span class="m-bar">y</span> = 4,2</span>):</strong><br>
+        • <span class="math-eq">x − <span class="m-bar">x</span> = 4,0 − 5,5 = −1,50</span><br>
+        • <span class="math-eq">y − <span class="m-bar">y</span> = 3,0 − 4,2 = −1,20</span><br>
+        • <span class="math-eq">(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>) = (−1,50) × (−1,20) = 1,80</span><br>
+        • <span class="math-eq">(x − <span class="m-bar">x</span>)<sup>2</sup> = (−1,50)² = 2,25</span>
+      </div>
+
+      <!-- Langkah 1: Rata-rata <span class="m-bar">x</span> dan <span class="m-bar">y</span> -->
+      <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2.5">
+        <h3 class="text-xs sm:text-sm font-bold text-ink">Langkah 1 — Hitung Rata-Rata <span class="math-eq"><span class="m-bar">x</span></span> dan <span class="math-eq"><span class="m-bar">y</span></span>:</h3>
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-[11px] font-semibold text-muted mb-1">Rata-rata <span class="math-eq text-ink"><span class="m-bar">x</span></span>:</label>
+            <input id="i3_xbar" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-muted mb-1">Rata-rata <span class="math-eq text-ink"><span class="m-bar">y</span></span>:</label>
+            <input id="i3_ybar" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+          </div>
+        </div>
+        <button onclick="checkInv3Means()" class="w-full py-2.5 rounded-xl bg-purple-700 text-white font-bold text-xs sm:text-sm">
+          Cek Rata-Rata (<span class="m-bar">x</span> dan <span class="m-bar">y</span>)
+        </button>
+        <div id="i3_mean_fb" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+      </div>
+
+      <!-- Langkah 2: Kartu Perhitungan per Tahun -->
+      <div class="space-y-2.5">
+        <h3 class="text-xs sm:text-sm font-bold text-ink">Langkah 2 — Tabel Perhitungan per Tahun:</h3>
+
+        <!-- 2018 -->
+        <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2.5">
+          <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-border">
+            <div class="min-w-0">
+              <span class="font-bold text-sm text-ink">Tahun 2018</span>
+              <span class="block text-xs font-semibold text-purple-700 truncate" data-member-slot="0">Anggota 1</span>
+            </div>
+            <span class="shrink-0 px-2 py-0.5 rounded-lg bg-surface border border-border font-mono text-xs font-bold">x=9,2 ; y=5,1</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">x − <span class="m-bar">x</span></label>
+              <input id="i3_dx_0" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">y − <span class="m-bar">y</span></label>
+              <input id="i3_dy_0" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>)</label>
+              <input id="i3_dxdy_0" type="text" inputmode="decimal" placeholder="Contoh: 1,234" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">(x − <span class="m-bar">x</span>)<sup>2</sup></label>
+              <input id="i3_dx2_0" type="text" inputmode="decimal" placeholder="Contoh: 1,234" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+          </div>
+          <button onclick="checkInv3Row(0)" class="w-full py-2 rounded-xl bg-purple-700 text-white font-bold text-xs">Cek Baris 2018</button>
+          <div id="i3_rfb_0" class="hidden text-xs p-2 rounded-lg font-medium"></div>
+        </div>
+
+        <!-- 2019 -->
+        <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2.5">
+          <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-border">
+            <div class="min-w-0">
+              <span class="font-bold text-sm text-ink">Tahun 2019</span>
+              <span class="block text-xs font-semibold text-purple-700 truncate" data-member-slot="1">Anggota 2</span>
+            </div>
+            <span class="shrink-0 px-2 py-0.5 rounded-lg bg-surface border border-border font-mono text-xs font-bold">x=29,3 ; y=16,5</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">x − <span class="m-bar">x</span></label>
+              <input id="i3_dx_1" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">y − <span class="m-bar">y</span></label>
+              <input id="i3_dy_1" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>)</label>
+              <input id="i3_dxdy_1" type="text" inputmode="decimal" placeholder="Contoh: 1,234" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">(x − <span class="m-bar">x</span>)<sup>2</sup></label>
+              <input id="i3_dx2_1" type="text" inputmode="decimal" placeholder="Contoh: 1,234" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+          </div>
+          <button onclick="checkInv3Row(1)" class="w-full py-2 rounded-xl bg-purple-700 text-white font-bold text-xs">Cek Baris 2019</button>
+          <div id="i3_rfb_1" class="hidden text-xs p-2 rounded-lg font-medium"></div>
+        </div>
+
+        <!-- 2020 -->
+        <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2.5">
+          <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-border">
+            <div class="min-w-0">
+              <span class="font-bold text-sm text-ink">Tahun 2020</span>
+              <span class="block text-xs font-semibold text-purple-700 truncate" data-member-slot="2">Anggota 3</span>
+            </div>
+            <span class="shrink-0 px-2 py-0.5 rounded-lg bg-surface border border-border font-mono text-xs font-bold">x=2,6 ; y=3,0</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">x − <span class="m-bar">x</span></label>
+              <input id="i3_dx_2" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">y − <span class="m-bar">y</span></label>
+              <input id="i3_dy_2" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>)</label>
+              <input id="i3_dxdy_2" type="text" inputmode="decimal" placeholder="Contoh: 1,234" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">(x − <span class="m-bar">x</span>)<sup>2</sup></label>
+              <input id="i3_dx2_2" type="text" inputmode="decimal" placeholder="Contoh: 1,234" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+          </div>
+          <button onclick="checkInv3Row(2)" class="w-full py-2 rounded-xl bg-purple-700 text-white font-bold text-xs">Cek Baris 2020</button>
+          <div id="i3_rfb_2" class="hidden text-xs p-2 rounded-lg font-medium"></div>
+        </div>
+
+        <!-- 2021 -->
+        <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-2.5">
+          <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-border">
+            <div class="min-w-0">
+              <span class="font-bold text-sm text-ink">Tahun 2021</span>
+              <span class="block text-xs font-semibold text-purple-700 truncate" data-member-slot="3">Anggota 4</span>
+            </div>
+            <span class="shrink-0 px-2 py-0.5 rounded-lg bg-surface border border-border font-mono text-xs font-bold">x=1,5 ; y=3,6</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">x − <span class="m-bar">x</span></label>
+              <input id="i3_dx_3" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">y − <span class="m-bar">y</span></label>
+              <input id="i3_dy_3" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>)</label>
+              <input id="i3_dxdy_3" type="text" inputmode="decimal" placeholder="Contoh: 1,234" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+            <div>
+              <label class="block text-xs text-ink mb-1 math-eq">(x − <span class="m-bar">x</span>)<sup>2</sup></label>
+              <input id="i3_dx2_3" type="text" inputmode="decimal" placeholder="Contoh: 1,234" class="w-full h-10 px-2.5 rounded-xl border border-border bg-surface font-mono text-ink" />
+            </div>
+          </div>
+          <button onclick="checkInv3Row(3)" class="w-full py-2 rounded-xl bg-purple-700 text-white font-bold text-xs">Cek Baris 2021</button>
+          <div id="i3_rfb_3" class="hidden text-xs p-2 rounded-lg font-medium"></div>
+        </div>
+      </div>
+
+      <!-- Jumlah Total Keempat Tahun (Σ) -->
+      <div class="p-3.5 rounded-2xl bg-purple-50/70 border border-purple-200 space-y-2.5">
+        <div class="space-y-1">
+          <span class="inline-block px-2 py-0.5 rounded-md bg-white text-purple-800 text-[11px] font-bold border border-purple-200" data-member-slot="4">
+            Koordinator & Tutor Sebaya
+          </span>
+          <h3 class="text-xs sm:text-sm font-bold text-ink">Jumlah Total Keempat Tahun (Σ):</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-xs font-semibold text-ink mb-1 math-eq">Σ(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>) =</label>
+            <input id="i3_sum_dxdy" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-3 rounded-xl border border-purple-300 bg-white font-mono text-ink" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-ink mb-1 math-eq">Σ(x − <span class="m-bar">x</span>)<sup>2</sup> =</label>
+            <input id="i3_sum_dx2" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-3 rounded-xl border border-purple-300 bg-white font-mono text-ink" />
+          </div>
+        </div>
+        <button onclick="checkInv3Sums()" class="w-full py-2.5 rounded-xl bg-purple-700 text-white font-bold text-xs sm:text-sm">
+          Cek Jumlah Total (Σ)
+        </button>
+        <div id="i3_sum_fb" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+      </div>
+
+      <!-- Langkah 3: Tentukan b, a, dan Prediksi -->
+      <div class="p-3.5 rounded-2xl bg-paper border border-border space-y-3">
+        <h3 class="text-xs sm:text-sm font-bold text-ink">Langkah 3 — Tentukan Nilai <span class="math-eq">b</span>, <span class="math-eq">a</span>, dan Prediksi:</h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-[11px] font-semibold text-muted mb-1">Gradien <span class="math-eq text-ink">b = Σ(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>) ÷ Σ(x − <span class="m-bar">x</span>)<sup>2</sup></span>:</label>
+            <input id="i3_b" type="text" inputmode="decimal" placeholder="Contoh: 1,234" class="w-full h-10 px-3 rounded-xl border border-border bg-surface font-mono text-ink" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-muted mb-1">Titik potong <span class="math-eq text-ink">a = <span class="m-bar">y</span> − b · <span class="m-bar">x</span></span>:</label>
+            <input id="i3_a" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-3 rounded-xl border border-border bg-surface font-mono text-ink" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-muted mb-1">
+            Prediksi luas karhutla (<span class="math-eq">ŷ</span>) jika terdeteksi <span class="math-eq text-ink">x = 20</span> ribu titik panas:
+          </label>
+          <input id="i3_pred20" type="text" inputmode="decimal" placeholder="Contoh: 1,23" class="w-full h-10 px-3 rounded-xl border border-border bg-surface font-mono text-ink" />
+        </div>
+
+        <button onclick="checkInv3Final()" class="w-full py-2.5 rounded-xl bg-purple-700 text-white font-bold text-xs sm:text-sm">
+          Verifikasi Persamaan Regresi
+        </button>
+        <div id="i3_final_fb" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: KESIMPULAN PENTING & EXIT TICKET -->
+    <section id="sec-simpulan" class="section-anchor bg-surface rounded-2xl border border-border p-4 sm:p-5 shadow-xs space-y-4">
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-wider text-accent">Penutup • Rangkuman Mandiri</span>
+        <h2 class="text-lg sm:text-xl font-bold text-ink mt-0.5">Kotak Kesimpulan Penting Hari Ini</h2>
+        <p class="text-xs sm:text-sm text-muted mt-1 leading-relaxed">
+          Buatlah kotak penanda di bagian bawah halaman buku tulismu berjudul <strong>"KESIMPULAN PENTING HARI INI"</strong>, lengkapi 3 poin berikut, lalu salin ke buku tulismu!
+        </p>
+      </div>
+
+      <div class="p-3.5 rounded-2xl bg-amber-50/60 border-l-4 border-accent space-y-3">
+        <!-- Poin A -->
+        <div class="p-3 rounded-xl bg-white border border-border space-y-2">
+          <div class="text-xs font-bold text-ink">(a) Arti Residu & Alasan Dikuadratkan:</div>
+          <p class="text-xs text-muted">1. Rumus residu (selisih data asli dan prediksi garis) adalah:</p>
+          <select id="sum_q1" class="w-full h-10 px-3 rounded-xl border border-border bg-paper font-semibold text-ink">
+            <option value="">-- Pilih rumus e --</option>
+            <option value="right">e = y − ŷ (data dikurangi prediksi)</option>
+            <option value="wrong">e = ŷ − y (prediksi dikurangi data)</option>
+          </select>
+          <p class="text-xs text-muted pt-1">2. Residu dikuadratkan (<span class="math-eq">e²</span>) karena residu positif dan negatif dapat:</p>
+          <select id="sum_q2" class="w-full h-10 px-3 rounded-xl border border-border bg-paper font-semibold text-ink">
+            <option value="">-- Pilih alasan --</option>
+            <option value="right">Saling meniadakan jika dijumlah biasa</option>
+            <option value="wrong">Membuat garis menjadi melengkung</option>
+          </select>
+        </div>
+
+        <!-- Poin B -->
+        <div class="p-3 rounded-xl bg-white border border-border space-y-2">
+          <div class="text-xs font-bold text-ink">(b) Kriteria Garis Terbaik (Best Fit):</div>
+          <p class="text-xs text-muted">Garis yang paling pas mewakili data bivariat adalah garis yang memiliki:</p>
+          <select id="sum_q3" class="w-full h-10 px-3 rounded-xl border border-border bg-paper font-semibold text-ink">
+            <option value="">-- Pilih kriteria --</option>
+            <option value="right">Jumlah kuadrat residu (Σe²) terkecil</option>
+            <option value="wrong">Jumlah residu biasa (Σe) terbesar</option>
+          </select>
+        </div>
+
+        <!-- Poin C -->
+        <div class="p-3 rounded-xl bg-white border border-border space-y-2">
+          <div class="text-xs font-bold text-ink">(c) Rumus Persamaan Garis Regresi Linear (<span class="math-eq">ŷ = a + bx</span>):</div>
+          <p class="text-xs text-muted leading-relaxed">
+            Gradien <span class="math-eq text-ink">b = Σ(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>) ÷ Σ(x − <span class="m-bar">x</span>)<sup>2</sup></span>, sedangkan rumus titik potong <span class="math-eq text-ink">a</span> yang tepat adalah:
+          </p>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="p-2 rounded-lg bg-subtle border border-border text-center math-eq text-ink">
+              Rumus (1): a = <span class="m-bar">y</span> − b · <span class="m-bar">x</span>
+            </div>
+            <div class="p-2 rounded-lg bg-subtle border border-border text-center math-eq text-ink">
+              Rumus (2): a = <span class="m-bar">x</span> − b · <span class="m-bar">y</span>
+            </div>
+          </div>
+          <select id="sum_q4" class="w-full h-10 px-3 rounded-xl border border-border bg-paper font-semibold text-ink">
+            <option value="">-- Pilih rumus a yang benar --</option>
+            <option value="right">Rumus (1): rata-rata y dikurangi (b × rata-rata x)</option>
+            <option value="wrong">Rumus (2): rata-rata x dikurangi (b × rata-rata y)</option>
+          </select>
+        </div>
+
+        <button onclick="checkSummaryBox()" class="w-full py-2.5 rounded-xl bg-ink text-paper font-bold text-xs sm:text-sm">
+          Cek Kotak Kesimpulan
+        </button>
+        <div id="sum_fb" class="hidden text-xs p-2.5 rounded-xl font-medium leading-relaxed"></div>
+      </div>
+
+      <!-- Exit Ticket Manual di Buku Tulis -->
+      <div class="p-3.5 rounded-2xl bg-subtle border border-border space-y-1.5">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-muted">Refleksi Mandiri & Exit Ticket</span>
+        <h3 class="text-xs sm:text-sm font-bold text-ink">Tuliskan 2 Baris Kalimat Ini di Paling Bawah Halaman Buku Tulismu:</h3>
+        <ul class="text-xs text-muted space-y-1 list-disc pl-4 leading-relaxed">
+          <li><strong>Baris 1:</strong> Satu hal tentang residu dan garis regresi yang paling mudah saya pahami hari ini adalah...</li>
+          <li><strong>Baris 2:</strong> Satu hal yang masih harus saya teliti lagi (misalnya menghitung residu, alasan dikuadratkan, atau menghitung <span class="math-eq">b</span> dan <span class="math-eq">a</span>) adalah...</li>
+        </ul>
+      </div>
+
+      <!-- Pengumpulan File HTML Terisi ke Google Drive (via Google Apps Script) -->
+      <div id="submissionBox" class="p-4 rounded-2xl bg-emeraldSoft/70 border-2 border-emerald/30 space-y-3">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <span class="inline-block px-2 py-0.5 rounded-md bg-emerald text-white text-[10px] font-bold uppercase tracking-wider mb-1">
+              Pengumpulan Tugas Kelompok
+            </span>
+            <h3 class="text-sm sm:text-base font-bold text-ink">Kumpulkan E-LKM Terisi ke Google Drive Guru</h3>
+            <p class="text-xs text-muted mt-0.5 leading-relaxed">
+              Pastikan kelompok sudah dipilih dan seluruh bagian telah diverifikasi. Menekan tombol di bawah akan mengirimkan salinan file HTML yang berisi seluruh jawaban kelompokmu langsung ke Google Drive guru.
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-xs font-semibold text-ink">Catatan Tambahan Kelompok (Opsional):</label>
+          <input id="group_note" type="text" placeholder="Contoh: Semua anggota hadir, buku tulis sudah lengkap..." class="w-full h-10 px-3 rounded-xl border border-emerald/30 bg-white text-xs sm:text-sm text-ink" />
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2 pt-1">
+          <button id="btnSubmitDrive" onclick="submitToGoogleDrive()" class="w-full py-3 px-4 rounded-xl bg-emerald text-white font-bold text-xs sm:text-sm shadow-sm active:scale-[0.99] transition flex items-center justify-center gap-2">
+            <span>☁️</span>
+            <span id="btnSubmitText">Kumpulkan E-LKM ke Drive Guru</span>
+          </button>
+          <button onclick="downloadFilledHtmlLocal()" class="w-full sm:w-auto shrink-0 py-2.5 px-3.5 rounded-xl bg-white border border-emerald/40 text-emerald font-bold text-xs transition">
+            💾 Unduh Cadangan HTML
+          </button>
+        </div>
+
+        <div id="submitStatusBox" class="hidden text-xs p-3 rounded-xl font-medium leading-relaxed"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SLIDE-UP CALCULATOR DRAWER -->
+  <div id="calcDrawer" class="hidden fixed inset-0 z-[9996] bg-black/40 flex items-end justify-center">
+    <div class="bg-paper w-full max-w-md rounded-t-3xl border-t border-border p-4 shadow-2xl space-y-2.5">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold uppercase tracking-wider text-muted">Kalkulator Saku Kelompok</span>
+        <div class="flex items-center gap-1.5">
+          <button onclick="copyCalcResult()" id="copyCalcBtn" class="px-2.5 py-1 rounded-lg bg-accentSoft text-accent text-xs font-bold">
+            Salin Hasil
+          </button>
+          <button onclick="toggleCalculator()" class="w-7 h-7 rounded-full bg-subtle text-ink text-xs font-bold">✕</button>
+        </div>
+      </div>
+
+      <div class="p-2.5 rounded-2xl bg-surface border border-border text-right">
+        <div id="calcExpr" class="font-mono text-xs text-muted h-4 truncate"></div>
+        <div id="calcScreen" class="font-mono text-xl font-bold text-ink truncate">0</div>
+      </div>
+
+      <div class="grid grid-cols-4 gap-1.5">
+        <button onclick="calcInput('C')" class="h-10 rounded-xl bg-roseSoft text-rose text-sm font-bold">C</button>
+        <button onclick="calcInput('(')" class="h-10 rounded-xl bg-subtle text-ink font-mono text-sm font-bold">(</button>
+        <button onclick="calcInput(')')" class="h-10 rounded-xl bg-subtle text-ink font-mono text-sm font-bold">)</button>
+        <button onclick="calcInput('/')" class="h-10 rounded-xl bg-amber-100 text-accent font-mono text-sm font-bold">÷</button>
+
+        <button onclick="calcInput('7')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">7</button>
+        <button onclick="calcInput('8')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">8</button>
+        <button onclick="calcInput('9')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">9</button>
+        <button onclick="calcInput('*')" class="h-10 rounded-xl bg-amber-100 text-accent font-mono text-sm font-bold">×</button>
+
+        <button onclick="calcInput('4')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">4</button>
+        <button onclick="calcInput('5')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">5</button>
+        <button onclick="calcInput('6')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">6</button>
+        <button onclick="calcInput('-')" class="h-10 rounded-xl bg-amber-100 text-accent font-mono text-sm font-bold">−</button>
+
+        <button onclick="calcInput('1')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">1</button>
+        <button onclick="calcInput('2')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">2</button>
+        <button onclick="calcInput('3')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">3</button>
+        <button onclick="calcInput('+')" class="h-10 rounded-xl bg-amber-100 text-accent font-mono text-sm font-bold">+</button>
+
+        <button onclick="calcInput('0')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">0</button>
+        <button onclick="calcInput('.')" class="h-10 rounded-xl bg-surface border border-border font-mono text-sm font-bold">,</button>
+        <button onclick="calcSquare()" class="h-10 rounded-xl bg-subtle text-ink font-mono text-sm font-bold">x²</button>
+        <button onclick="calcInput('=')" class="h-10 rounded-xl bg-ink text-paper font-mono text-sm font-bold">=</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIXED BOTTOM THUMB-ZONE NAVIGATION WITH SCROLLSPY (PROPORTIONAL TEXT) -->
+  <nav class="bottom-nav-fixed px-1.5 py-1">
+    <div class="max-w-3xl mx-auto grid grid-cols-6 gap-1">
+      <button onclick="scrollToSec('sec-pemantik')" data-nav="sec-pemantik" class="nav-btn active flex flex-col items-center justify-center py-1 px-0.5 rounded-xl text-muted transition">
+        <span class="text-xs sm:text-sm leading-none mb-0.5">👁️</span>
+        <span class="w-full text-center truncate">Data</span>
+      </button>
+      <button onclick="scrollToSec('sec-inv1')" data-nav="sec-inv1" class="nav-btn flex flex-col items-center justify-center py-1 px-0.5 rounded-xl text-muted transition">
+        <span class="text-xs sm:text-sm leading-none mb-0.5">📏</span>
+        <span class="w-full text-center truncate">1.Residu</span>
+      </button>
+      <button onclick="scrollToSec('sec-inv2')" data-nav="sec-inv2" class="nav-btn flex flex-col items-center justify-center py-1 px-0.5 rounded-xl text-muted transition">
+        <span class="text-xs sm:text-sm leading-none mb-0.5">📐</span>
+        <span class="w-full text-center truncate">2.Σe²</span>
+      </button>
+      <button onclick="scrollToSec('sec-inv3')" data-nav="sec-inv3" class="nav-btn flex flex-col items-center justify-center py-1 px-0.5 rounded-xl text-muted transition">
+        <span class="text-xs sm:text-sm leading-none mb-0.5">📈</span>
+        <span class="w-full text-center truncate">3.Regresi</span>
+      </button>
+      <button onclick="scrollToSec('sec-simpulan')" data-nav="sec-simpulan" class="nav-btn flex flex-col items-center justify-center py-1 px-0.5 rounded-xl text-muted transition">
+        <span class="text-xs sm:text-sm leading-none mb-0.5">📒</span>
+        <span class="w-full text-center truncate">Simpulan</span>
+      </button>
+      <button onclick="toggleCalculator()" class="nav-btn flex flex-col items-center justify-center py-1 px-0.5 rounded-xl font-bold bg-amber-100/90 text-stone-900 border border-amber-300 active:scale-95 transition">
+        <span class="text-xs sm:text-sm leading-none mb-0.5">🧮</span>
+        <span class="w-full text-center truncate">Hitung</span>
+      </button>
+    </div>
+  </nav>
+
+  <script>
+    const GROUPS = {
+      "1": {
+        tutor: "Tazkia Hanifa",
+        members: [
+          "Ashilah Azalia",
+          "Abdullah Sulthoni Hakim",
+          "Asyifa Nur Nafi'ah",
+          "Rahma Aisyah",
+          "Tazkia Hanifa (Tutor)"
+        ]
+      },
+      "2": {
+        tutor: "Latifah Jehanaira Nisa",
+        members: [
+          "Ghazir Rizky Ramadhan",
+          "Innaya Kafka Nafisa",
+          "Muhammad Ryzky Nur Syahputra",
+          "Rahmi Karissa",
+          "Latifah Jehanaira Nisa (Tutor)"
+        ]
+      },
+      "3": {
+        tutor: "Kinanthi Sekar Dewani Ariyanto",
+        members: [
+          "Vanessa Almirasasi",
+          "Arienna Jullya Pratiwi",
+          "Aura Chantika Syifaunnisa",
+          "Baim Suharta Sanjaya",
+          "Kinanthi Sekar Dewani A. (Tutor)"
+        ]
+      },
+      "4": {
+        tutor: "Mochammad Rasikh Nur Fakhri",
+        members: [
+          "Keivano Raditya Dzaky",
+          "Atina Nur Khasanah",
+          "Hanamae Keisha Faluffy",
+          "Jovan Ariandika",
+          "M. Rasikh Nur Fakhri (Tutor)"
+        ]
+      },
+      "5": {
+        tutor: "Githa Aisha Daaniara",
+        members: [
+          "Yaris Maulana Wijaya",
+          "Aqila Kirana Prameswari",
+          "Charisa Evelyn Ramadhanti",
+          "Qaila Ivana Zaafarani",
+          "Githa Aisha Daaniara (Tutor)"
+        ]
+      },
+      "6": {
+        tutor: "Felindias Icna Realin",
+        members: [
+          "Dhiya Athaya Kanahaya Yudhitya",
+          "Griselda Aurelia Manggala",
+          "Muhammad Arka Reswara Nasution",
+          "Saintly Aura Murtyaroh Putri",
+          "Felindias Icna Realin (Tutor)"
+        ]
+      },
+      "7": {
+        tutor: "Naura Rania Yasmin",
+        members: [
+          "Razqia Ainunnindya Rahma",
+          "Imam Hanafi",
+          "Muhammad Yusuf Muzaki",
+          "Qiara Ramadhani Yunanto",
+          "Naura Rania Yasmin (Tutor)"
+        ]
+      }
+    };
+
+    const DATA_POINTS = [
+      { year: 2018, x: 9.2,  y: 5.1,  yhatA: 5.68,  eA: -0.58, posA: 'under', eB: -1.00, eC: -1.56, dx: -1.45, dy: -1.95, dxdy: 2.8275,  dx2: 2.1025 },
+      { year: 2019, x: 29.3, y: 16.5, yhatA: 13.72, eA: 2.78,  posA: 'over',  eB: 0.35,  eC: 3.81,  dx: 18.65, dy: 9.45,  dxdy: 176.2425, dx2: 347.8225 },
+      { year: 2020, x: 2.6,  y: 3.0,  yhatA: 3.04,  eA: -0.04, posA: 'under', eB: 0.20,  eC: -1.68, dx: -8.05, dy: -4.05, dxdy: 32.6025, dx2: 64.8025 },
+      { year: 2021, x: 1.5,  y: 3.6,  yhatA: 2.60,  eA: 1.00,  posA: 'over',  eB: 1.35,  eC: -0.75, dx: -9.15, dy: -3.45, dxdy: 31.5675, dx2: 83.7225 }
+    ];
+
+    let state = {
+      groupId: "",
+      rotOffset: 0,
+      showLines: { A: true, B: true, C: true, R: false },
+      verifiedResA: [false, false, false, false],
+      doneSteps: {}
+    };
+
+    function parseNum(val) {
+      if (typeof val !== 'string') return NaN;
+      const cleaned = val.trim().replace(/\s+/g, '').replace(',', '.').replace('−', '-');
+      return parseFloat(cleaned);
+    }
+
+    function near(val, target, tol = 0.03) {
+      return !isNaN(val) && Math.abs(val - target) <= tol;
+    }
+
+    function markStepDone(key) {
+      state.doneSteps[key] = true;
+      const count = Object.keys(state.doneSteps).length;
+      document.getElementById('progressBadge').textContent = `${Math.min(count, 8)}/8`;
+      saveLocalState();
+    }
+
+    function toggleHint(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('hidden');
+    }
+
+    function showFeedback(id, ok, htmlMsg) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove('hidden', 'bg-emeraldSoft', 'text-emerald', 'border-emerald/30', 'bg-roseSoft', 'text-rose', 'border-rose/30');
+      el.classList.add('border');
+      if (ok) {
+        el.classList.add('bg-emeraldSoft', 'text-emerald', 'border-emerald/30');
+      } else {
+        el.classList.add('bg-roseSoft', 'text-rose', 'border-rose/30');
+      }
+      el.innerHTML = htmlMsg;
+    }
+
+    function toggleGroupDrawer() {
+      const dr = document.getElementById('groupDrawer');
+      dr.classList.toggle('hidden');
+    }
+
+    function selectGroup(gid) {
+      state.groupId = gid;
+      state.rotOffset = 0;
+      applyGroupUI();
+      saveLocalState();
+    }
+
+    function rotateTasks() {
+      state.rotOffset = (state.rotOffset + 1) % 4;
+      applyGroupUI();
+      saveLocalState();
+    }
+
+    function applyGroupUI() {
+      const gid = state.groupId;
+      const topLabel = document.getElementById('topGroupLabel');
+      const rosterBox = document.getElementById('groupRosterBox');
+      const rosterList = document.getElementById('rosterList');
+      const banner = document.getElementById('activeGroupBanner');
+
+      if (!gid || !GROUPS[gid]) {
+        topLabel.textContent = "Pilih Kelompok";
+        rosterBox.classList.add('hidden');
+        return;
+      }
+
+      const g = GROUPS[gid];
+      topLabel.textContent = `Kelompok ${gid}`;
+      document.getElementById('groupSelect').value = gid;
+      rosterBox.classList.remove('hidden');
+
+      const fourMembers = g.members.slice(0, 4);
+      const rotated = [0, 1, 2, 3].map(i => fourMembers[(i + state.rotOffset) % 4]);
+      const coord = g.members[4];
+
+      const years = ["Titik 2018 (x=9,2)", "Titik 2019 (x=29,3)", "Titik 2020 (x=2,6)", "Titik 2021 (x=1,5)"];
+      rosterList.innerHTML = rotated.map((m, idx) => `
+        <div class="flex items-center justify-between p-2 rounded-xl bg-surface border border-border gap-2">
+          <span class="font-bold text-ink shrink-0">${years[idx]}</span>
+          <span class="font-semibold text-indigo text-right truncate">${m}</span>
+        </div>
+      `).join('') + `
+        <div class="flex items-center justify-between p-2 rounded-xl bg-amber-50 border border-amber-200 gap-2">
+          <span class="font-bold text-ink shrink-0">Koordinator Σ</span>
+          <span class="font-bold text-accent text-right truncate">${coord}</span>
+        </div>
+      `;
+
+      document.querySelectorAll('[data-member-slot]').forEach(el => {
+        const slot = parseInt(el.getAttribute('data-member-slot'), 10);
+        if (slot >= 0 && slot < 4) {
+          el.textContent = rotated[slot];
+        } else if (slot === 4) {
+          el.textContent = coord;
+        }
+      });
+
+      banner.innerHTML = `
+        <div class="text-xs">
+          <span class="font-bold text-ink">Kelompok ${gid} Aktif</span> • Tutor: <strong>${g.tutor}</strong>
+        </div>
+        <button onclick="toggleGroupDrawer()" class="w-full sm:w-auto shrink-0 px-3 py-1.5 rounded-lg bg-surface border border-border text-ink text-xs font-bold">
+          Lihat / Tukar Tugas
+        </button>
+      `;
+    }
+
+    function savePrediction() {
+      const val = document.getElementById('predLineSelect').value;
+      const note = document.getElementById('predSavedNote');
+      if (val) {
+        note.classList.remove('hidden');
+        markStepDone('pred');
+      }
+      saveLocalState();
+    }
+
+    function renderScatterPlot() {
+      const svg = document.getElementById('scatterSvg');
+      const W = 420, H = 250;
+      const padL = 38, padR = 16, padT = 16, padB = 30;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const xScale = x => padL + (x / 32) * plotW;
+      const yScale = y => padT + plotH - (y / 18) * plotH;
+
+      let html = '';
+
+      for (let gx = 0; gx <= 30; gx += 5) {
+        const px = xScale(gx);
+        html += `<line x1="${px}" y1="${padT}" x2="${px}" y2="${padT + plotH}" stroke="#EFECE3" stroke-width="1"/>`;
+        html += `<text x="${px}" y="${H - 10}" text-anchor="middle" font-size="9" fill="#57534E" font-family="JetBrains Mono">${gx}</text>`;
+      }
+      for (let gy = 0; gy <= 18; gy += 3) {
+        const py = yScale(gy);
+        html += `<line x1="${padL}" y1="${py}" x2="${W - padR}" y2="${py}" stroke="#EFECE3" stroke-width="1"/>`;
+        html += `<text x="${padL - 6}" y="${py + 3}" text-anchor="end" font-size="9" fill="#57534E" font-family="JetBrains Mono">${gy}</text>`;
+      }
+
+      html += `<line x1="${padL}" y1="${padT + plotH}" x2="${W - padR}" y2="${padT + plotH}" stroke="#57534E" stroke-width="1.5"/>`;
+      html += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + plotH}" stroke="#57534E" stroke-width="1.5"/>`;
+
+      const drawLine = (a, b, color, dash = "") => {
+        const x1 = 0, y1 = a + b * x1;
+        const x2 = 31, y2 = a + b * x2;
+        return `<line x1="${xScale(x1)}" y1="${yScale(y1)}" x2="${xScale(x2)}" y2="${yScale(y2)}" stroke="${color}" stroke-width="2.2" ${dash}/>`;
+      };
+
+      if (state.showLines.A) html += drawLine(2.0, 0.4, "#4338CA");
+      if (state.showLines.B) html += drawLine(1.5, 0.5, "#0F766E");
+      if (state.showLines.C) html += drawLine(3.9, 0.3, "#BE123C");
+      if (state.showLines.R) html += drawLine(1.85, 0.488, "#7E22CE", 'stroke-dasharray="5,3"');
+
+      DATA_POINTS.forEach((pt, idx) => {
+        if (state.verifiedResA[idx] && state.showLines.A) {
+          const px = xScale(pt.x);
+          const pyData = yScale(pt.y);
+          const pyHat = yScale(pt.yhatA);
+          const segColor = pt.eA >= 0 ? "#15803D" : "#BE123C";
+          html += `<line x1="${px}" y1="${pyData}" x2="${px}" y2="${pyHat}" stroke="${segColor}" stroke-width="2.5" stroke-dasharray="3,2"/>`;
+        }
+      });
+
+      DATA_POINTS.forEach((pt, idx) => {
+        const px = xScale(pt.x);
+        const py = yScale(pt.y);
+        html += `
+          <g class="cursor-pointer" onclick="inspectPoint(${idx})">
+            <circle cx="${px}" cy="${py}" r="14" fill="transparent"/>
+            <circle cx="${px}" cy="${py}" r="5.5" fill="#B45309" stroke="#FFFFFF" stroke-width="2"/>
+            <text x="${px}" y="${py - 8}" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1C1917">${pt.year}</text>
+          </g>
+        `;
+      });
+
+      svg.innerHTML = html;
+    }
+
+    function togglePlotLine(lineKey) {
+      state.showLines[lineKey] = !state.showLines[lineKey];
+      const mapBtn = {
+        A: { id: 'btnLineA', on: 'bg-indigo text-white', off: 'bg-subtle text-muted border border-border' },
+        B: { id: 'btnLineB', on: 'bg-teal text-white', off: 'bg-subtle text-muted border border-border' },
+        C: { id: 'btnLineC', on: 'bg-rose text-white', off: 'bg-subtle text-muted border border-border' },
+        R: { id: 'btnLineR', on: 'bg-purple-700 text-white', off: 'bg-subtle text-muted border border-border' }
+      };
+      const cfg = mapBtn[lineKey];
+      const btn = document.getElementById(cfg.id);
+      btn.className = `px-2 py-1 rounded-lg text-[11px] font-bold text-center ${state.showLines[lineKey] ? cfg.on : cfg.off}`;
+      renderScatterPlot();
+    }
+
+    function inspectPoint(idx) {
+      const pt = DATA_POINTS[idx];
+      const box = document.getElementById('pointInspector');
+      const extraInfo = state.verifiedResA[idx]
+        ? ` Pada Garis A (<span class="math-eq">ŷ = ${pt.yhatA.toString().replace('.', ',')}</span>), residunya <span class="math-eq">e = ${pt.eA > 0 ? '+' : ''}${pt.eA.toString().replace('.', ',')}</span>.`
+        : ` Selesaikan & verifikasi titik tahun ${pt.year} pada Investigasi 1 untuk menyalakan segmen residunya.`;
+      box.innerHTML = `📌 <strong>Data Tahun ${pt.year}:</strong> Titik panas <span class="math-eq">x = ${pt.x.toString().replace('.', ',')}</span> ribu titik, Luas karhutla <span class="math-eq">y = ${pt.y.toString().replace('.', ',')}</span> ratus ribu ha.${extraInfo}`;
+    }
+
+    function checkInv1Row(idx) {
+      const pt = DATA_POINTS[idx];
+      const yh = parseNum(document.getElementById(`i1_yhat_${idx}`).value);
+      const eVal = parseNum(document.getElementById(`i1_e_${idx}`).value);
+      const pos = document.getElementById(`i1_pos_${idx}`).value;
+
+      if (!near(yh, pt.yhatA, 0.02)) {
+        showFeedback(`i1_fb_${idx}`, false, `Belum tepat pada nilai <strong>ŷ</strong>. Substitusikan nilai x tahun ${pt.year} ke persamaan <strong>ŷ = 2 + 0,4x</strong>.`);
+        return;
+      }
+      if (near(eVal, -pt.eA, 0.02) && Math.abs(pt.eA) > 0.01) {
+        showFeedback(`i1_fb_${idx}`, false, `⚠️ Hati-hati tanda terbalik! Residu adalah <strong>data asli dikurangi prediksi (e = y − ŷ)</strong>, bukan ŷ − y.`);
+        return;
+      }
+      if (!near(eVal, pt.eA, 0.02)) {
+        showFeedback(`i1_fb_${idx}`, false, `Nilai <strong>ŷ</strong> sudah benar, tetapi hitung kembali selisih <strong>e = y − ŷ</strong> untuk tahun ${pt.year}.`);
+        return;
+      }
+      if (pos !== pt.posA) {
+        showFeedback(`i1_fb_${idx}`, false, `Hitungan angka sudah tepat! Sekarang perhatikan tanda residu <strong>e</strong>: jika positif titik berada di atas garis, jika negatif titik berada di bawah garis.`);
+        return;
+      }
+
+      state.verifiedResA[idx] = true;
+      renderScatterPlot();
+      markStepDone(`i1_r_${idx}`);
+      showFeedback(`i1_fb_${idx}`, true, `✓ Tepat sekali! Segmen residu tahun ${pt.year} telah menyala pada grafik di atas. Jangan lupa gambar segmen vertikalnya di buku tulismu.`);
+    }
+
+    function checkInv1Sum() {
+      const s = parseNum(document.getElementById('i1_sum_e').value);
+      if (near(s, 3.16, 0.03)) {
+        markStepDone('i1_sum');
+        showFeedback('i1_sum_fb', true, `✓ Benar! Jumlah residu Garis A adalah <strong>Σe = 3,16</strong> (positif cukup besar karena Garis A berada di bawah titik ekstrem tahun 2019).`);
+      } else {
+        showFeedback('i1_sum_fb', false, `Belum tepat. Jumlahkan keempat nilai residu <strong>e</strong> dari tahun 2018 hingga 2021 (perhatikan tanda positif dan negatifnya).`);
+      }
+    }
+
+    function checkInv2Year(idx) {
+      const pt = DATA_POINTS[idx];
+      const eb = parseNum(document.getElementById(`i2_eb_${idx}`).value);
+      const ec = parseNum(document.getElementById(`i2_ec_${idx}`).value);
+
+      if (near(eb, -pt.eB, 0.02) || near(ec, -pt.eC, 0.02)) {
+        showFeedback(`i2_yfb_${idx}`, false, `⚠️ Ingat urutan pengurangan: <strong>e = y − ŷ</strong> (data asli dikurangi nilai prediksi garis).`);
+        return;
+      }
+      if (!near(eb, pt.eB, 0.02)) {
+        showFeedback(`i2_yfb_${idx}`, false, `Residu Garis B (${pt.year}) belum tepat. Hitung prediksi <strong>ŷ = 1,5 + 0,5x</strong> terlebih dahulu, lalu hitung <strong>e = y − ŷ</strong>.`);
+        return;
+      }
+      if (!near(ec, pt.eC, 0.02)) {
+        showFeedback(`i2_yfb_${idx}`, false, `Residu Garis B sudah benar, namun residu Garis C (${pt.year}) belum tepat. Hitung <strong>ŷ = 3,9 + 0,3x</strong> lalu kurangkan dari <strong>y</strong>.`);
+        return;
+      }
+      showFeedback(`i2_yfb_${idx}`, true, `✓ Residu Garis B dan C tahun ${pt.year} benar! Sekarang kuadratkan nilainya di buku tulis.`);
+    }
+
+    function checkInv2Trap() {
+      const val = document.getElementById('i2_trap_q').value;
+      if (val === 'right') {
+        showFeedback('i2_trap_fb', true, `✓ Tepat! Meskipun Σe Garis C mendekati nol, residu di tiap titiknya cukup jauh namun saling meniadakan karena berbeda tanda.`);
+      } else if (val === 'wrong') {
+        showFeedback('i2_trap_fb', false, `Coba amati grafik Garis C: titik-titiknya melenceng jauh di atas dan di bawah garis, tetapi karena tandanya berlawanan (+ dan −) jumlahnya tampak mendekati nol.`);
+      }
+    }
+
+    function checkInv2SSE() {
+      const sseA = parseNum(document.getElementById('i2_sse_a').value);
+      const sseB = parseNum(document.getElementById('i2_sse_b').value);
+      const sseC = parseNum(document.getElementById('i2_sse_c').value);
+      const best = document.getElementById('i2_best_line').value;
+
+      if (!near(sseA, 9.07, 0.06)) {
+        showFeedback('i2_sse_fb', false, `Nilai <strong>Σe² Garis A</strong> belum tepat. Kuadratkan masing-masing residu Garis A dari keempat tahun, lalu jumlahkan semuanya.`);
+        return;
+      }
+      if (!near(sseB, 2.985, 0.05)) {
+        showFeedback('i2_sse_fb', false, `Nilai <strong>Σe² Garis B</strong> belum tepat. Kuadratkan keempat residu Garis B (ingat negatif dikuadratkan menjadi positif) lalu jumlahkan.`);
+        return;
+      }
+      if (!near(sseC, 20.33, 0.08)) {
+        showFeedback('i2_sse_fb', false, `Nilai <strong>Σe² Garis C</strong> belum tepat. Kuadratkan keempat residu Garis C lalu jumlahkan dengan teliti.`);
+        return;
+      }
+      if (best !== 'B') {
+        showFeedback('i2_sse_fb', false, `Ketiga nilai Σe² sudah benar! Sekarang pilih garis yang memiliki nilai <strong>Σe² paling kecil</strong>.`);
+        return;
+      }
+
+      markStepDone('i2_sse');
+      const pred = document.getElementById('predLineSelect').value;
+      const predNote = pred ? (pred === 'B' ? 'Tebakan awal kelompokmu di awal tadi terbukti benar!' : `Tebakan awal kelompokmu tadi adalah Garis ${pred}, dan lewat bukti angka kita menemukan Garis B lebih pas.`) : '';
+      showFeedback('i2_sse_fb', true, `✓ Luar biasa! <strong>Garis B (Σe² = 2,985)</strong> adalah yang terbaik di antara A, B, dan C karena jumlah kuadrat residunya paling kecil. ${predNote}`);
+    }
+
+    function checkInv3Means() {
+      const xb = parseNum(document.getElementById('i3_xbar').value);
+      const yb = parseNum(document.getElementById('i3_ybar').value);
+      if (near(xb, 10.65, 0.02) && near(yb, 7.05, 0.02)) {
+        markStepDone('i3_mean');
+        showFeedback('i3_mean_fb', true, `✓ Benar! Nilai rata-rata <strong><span class="m-bar">x</span></strong> dan <strong><span class="m-bar">y</span></strong> sudah tepat. Gunakan kedua angka ini untuk mengisi tabel tahun di bawah.`);
+      } else {
+        showFeedback('i3_mean_fb', false, `Belum tepat. Jumlahkan keempat nilai x lalu bagi 4 untuk memperoleh <strong><span class="m-bar">x</span></strong>, dan jumlahkan keempat nilai y lalu bagi 4 untuk memperoleh <strong><span class="m-bar">y</span></strong>.`);
+      }
+    }
+
+    function checkInv3Row(idx) {
+      const pt = DATA_POINTS[idx];
+      const dx = parseNum(document.getElementById(`i3_dx_${idx}`).value);
+      const dy = parseNum(document.getElementById(`i3_dy_${idx}`).value);
+      const dxdy = parseNum(document.getElementById(`i3_dxdy_${idx}`).value);
+      const dx2 = parseNum(document.getElementById(`i3_dx2_${idx}`).value);
+
+      if (!near(dx, pt.dx, 0.03) || !near(dy, pt.dy, 0.03)) {
+        showFeedback(`i3_rfb_${idx}`, false, `Periksa kembali pengurangan <strong>x − <span class="m-bar">x</span></strong> dan <strong>y − <span class="m-bar">y</span></strong> pada tahun ${pt.year} (perhatikan tanda negatifnya).`);
+        return;
+      }
+      if (!near(dxdy, pt.dxdy, 0.08)) {
+        showFeedback(`i3_rfb_${idx}`, false, `Hasil kali <strong>(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>)</strong> tahun ${pt.year} belum tepat. Kalikan kolom pertama dan kedua (ingat negatif dikali negatif hasilnya positif!).`);
+        return;
+      }
+      if (!near(dx2, pt.dx2, 0.08)) {
+        showFeedback(`i3_rfb_${idx}`, false, `Nilai kuadrat <strong>(x − <span class="m-bar">x</span>)<sup>2</sup></strong> tahun ${pt.year} belum tepat. Kuadratkan nilai pada kolom (x − <span class="m-bar">x</span>).`);
+        return;
+      }
+      showFeedback(`i3_rfb_${idx}`, true, `✓ Baris tahun ${pt.year} tepat! Catat ke tabel buku tulismu.`);
+    }
+
+    function checkInv3Sums() {
+      const sxy = parseNum(document.getElementById('i3_sum_dxdy').value);
+      const sx2 = parseNum(document.getElementById('i3_sum_dx2').value);
+      if (near(sxy, 243.24, 0.15) && near(sx2, 498.45, 0.15)) {
+        markStepDone('i3_sums');
+        showFeedback('i3_sum_fb', true, `✓ Tepat! Kedua jumlah total (<strong>Σ</strong>) sudah benar. Lanjutkan menghitung gradien <strong>b</strong> dan titik potong <strong>a</strong> pada Langkah 3.`);
+      } else {
+        showFeedback('i3_sum_fb', false, `Periksa kembali penjumlahan keempat tahun untuk kolom <strong>(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>)</strong> dan kolom <strong>(x − <span class="m-bar">x</span>)<sup>2</sup></strong>.`);
+      }
+    }
+
+    function checkInv3Final() {
+      const bVal = parseNum(document.getElementById('i3_b').value);
+      const aVal = parseNum(document.getElementById('i3_a').value);
+      const p20 = parseNum(document.getElementById('i3_pred20').value);
+
+      if (!near(bVal, 0.488, 0.005)) {
+        showFeedback('i3_final_fb', false, `Nilai gradien <strong>b</strong> belum tepat. Bagi hasil <strong>Σ(x − <span class="m-bar">x</span>)(y − <span class="m-bar">y</span>)</strong> dengan <strong>Σ(x − <span class="m-bar">x</span>)<sup>2</sup></strong> (bulatkan 3 angka di belakang koma).`);
+        return;
+      }
+      if (!near(aVal, 1.85, 0.03)) {
+        showFeedback('i3_final_fb', false, `Nilai gradien <strong>b</strong> sudah benar! Sekarang hitung titik potong <strong>a = <span class="m-bar">y</span> − b · <span class="m-bar">x</span></strong> (bulatkan 2 angka di belakang koma).`);
+        return;
+      }
+      if (!near(p20, 11.61, 0.12)) {
+        showFeedback('i3_final_fb', false, `Nilai <strong>b</strong> dan <strong>a</strong> sudah benar! Sekarang substitusikan <strong>x = 20</strong> ke persamaan <strong>ŷ = a + b(20)</strong>.`);
+        return;
+      }
+
+      state.showLines.R = true;
+      document.getElementById('btnLineR').className = 'px-2 py-1 rounded-lg text-[11px] font-bold bg-purple-700 text-white text-center';
+      renderScatterPlot();
+      markStepDone('i3_final');
+      showFeedback('i3_final_fb', true, `🎉 <strong>Selamat!</strong> Persamaan garis regresi linear <strong>ŷ = 1,85 + 0,488x</strong> berhasil ditemukan! Jumlah kuadrat residunya adalah <strong>Σe² ≈ 2,71</strong> (lebih kecil daripada Garis A, B, maupun C!). Untuk 20 ribu titik panas, luas karhutla diprediksi sekitar <strong>11,6 ratus ribu ha (1,16 juta ha)</strong>.`);
+    }
+
+    function checkSummaryBox() {
+      const q1 = document.getElementById('sum_q1').value;
+      const q2 = document.getElementById('sum_q2').value;
+      const q3 = document.getElementById('sum_q3').value;
+      const q4 = document.getElementById('sum_q4').value;
+
+      if (q1 === 'right' && q2 === 'right' && q3 === 'right' && q4 === 'right') {
+        markStepDone('summary');
+        showFeedback('sum_fb', true, `✓ Semua konsep kunci telah lengkap dan tepat! Silakan salin ketiga poin kesimpulan beserta 2 kalimat Exit Ticket ke bagian bawah buku tulismu.`);
+      } else {
+        showFeedback('sum_fb', false, `Masih ada pilihan kesimpulan yang belum lengkap atau kurang tepat. Periksa kembali poin (a), (b), dan (c).`);
+      }
+    }
+
+    let calcBuffer = "";
+    function toggleCalculator() {
+      document.getElementById('calcDrawer').classList.toggle('hidden');
+    }
+    function calcInput(token) {
+      const exprEl = document.getElementById('calcExpr');
+      const scrEl = document.getElementById('calcScreen');
+      if (token === 'C') {
+        calcBuffer = "";
+        exprEl.textContent = "";
+        scrEl.textContent = "0";
+        return;
+      }
+      if (token === '=') {
+        try {
+          const safe = calcBuffer.replace(/[^0-9+\-*/().]/g, '');
+          const res = Function(`"use strict"; return (${safe})`)();
+          const formatted = Number.isFinite(res) ? Number(Math.round(res + 'e4') + 'e-4').toString().replace('.', ',') : "Error";
+          exprEl.textContent = calcBuffer.replace(/\*/g, '×').replace(/\//g, '÷').replace(/\./g, ',') + " =";
+          scrEl.textContent = formatted;
+          calcBuffer = Number.isFinite(res) ? Number(Math.round(res + 'e4') + 'e-4').toString() : "";
+        } catch (e) {
+          scrEl.textContent = "Periksa rumus";
+        }
+        return;
+      }
+      calcBuffer += token;
+      scrEl.textContent = calcBuffer.replace(/\*/g, '×').replace(/\//g, '÷').replace(/\./g, ',');
+    }
+    function calcSquare() {
+      if (!calcBuffer) return;
+      try {
+        const val = Function(`"use strict"; return (${calcBuffer})`)();
+        const sq = val * val;
+        const clean = Number(Math.round(sq + 'e4') + 'e-4');
+        document.getElementById('calcExpr').textContent = `(${calcBuffer.replace(/\./g, ',')})² =`;
+        document.getElementById('calcScreen').textContent = clean.toString().replace('.', ',');
+        calcBuffer = clean.toString();
+      } catch (e) {}
+    }
+    function copyCalcResult() {
+      const txt = document.getElementById('calcScreen').textContent;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(txt);
+        const btn = document.getElementById('copyCalcBtn');
+        btn.textContent = "✓ Tersalin";
+        setTimeout(() => { btn.textContent = "Salin Hasil"; }, 1200);
+      }
+    }
+
+    function scrollToSec(id) {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      setActiveNav(id);
+    }
+
+    function setActiveNav(secId) {
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-nav') === secId) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function handleScrollSpy() {
+      const sections = ['sec-pemantik', 'sec-inv1', 'sec-inv2', 'sec-inv3', 'sec-simpulan'];
+      const triggerY = window.innerHeight * 0.35;
+      let current = sections[0];
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= triggerY) {
+            current = id;
+          }
+        }
+      }
+      setActiveNav(current);
+    }
+
+    function saveLocalState() {
+      try {
+        const inputs = {};
+        document.querySelectorAll('input, select').forEach(el => {
+          if (el.id) inputs[el.id] = el.value;
+        });
+        localStorage.setItem('elkm_xif8_v9', JSON.stringify({ state, inputs }));
+      } catch (e) {}
+    }
+
+    function loadLocalState() {
+      try {
+        const raw = localStorage.getItem('elkm_xif8_v9');
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed.state) state = Object.assign(state, parsed.state);
+        if (parsed.inputs) {
+          Object.entries(parsed.inputs).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el) el.value = val;
+          });
+        }
+        applyGroupUI();
+        const count = Object.keys(state.doneSteps || {}).length;
+        document.getElementById('progressBadge').textContent = `${Math.min(count, 8)}/8`;
+      } catch (e) {}
+    }
+
+    function resetAllProgress() {
+      if (!confirm("Hapus seluruh isian pada perangkat ini dan mulai dari awal?")) return;
+      localStorage.removeItem('elkm_xif8_v9');
+      location.reload();
+    }
+
+    // =========================================================================
+    // KONFIGURASI GOOGLE APPS SCRIPT WEB APP (ISI URL DEPLOYMENT ANDA DI SINI)
+    // =========================================================================
+    const APPS_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyEhBOJktoiORYwXLObJUu254SEghSX0ODYF_xi38bfs2tm4FkT8FbO52zJPyEbqx8l/exec";
+
+    // Fungsi untuk membekukan seluruh nilai input, select, dan status ke dalam DOM
+    // sehingga file HTML yang dikirim ke Google Drive langsung terbuka dengan semua isian lengkap
+    function buildFilledHtmlSnapshot() {
+      // 1. Sinkronkan nilai atribut value pada semua <input> dan <textarea>
+      document.querySelectorAll('input, textarea').forEach(el => {
+        el.setAttribute('value', el.value || '');
+      });
+
+      // 2. Sinkronkan opsi terpilih pada semua <select>
+      document.querySelectorAll('select').forEach(sel => {
+        Array.from(sel.options).forEach(opt => {
+          if (opt.value === sel.value) {
+            opt.setAttribute('selected', 'selected');
+          } else {
+            opt.removeAttribute('selected');
+          }
+        });
+      });
+
+      // 3. Sisipkan banner penanda waktu pengumpulan di bagian atas dokumen
+      const gid = state.groupId || "Belum_Pilih";
+      const tutorName = (GROUPS[gid] && GROUPS[gid].tutor) ? GROUPS[gid].tutor : "-";
+      const timestamp = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' });
+      const countDone = Object.keys(state.doneSteps || {}).length;
+
+      let cloneDoc = document.documentElement.cloneNode(true);
+
+      // Pastikan state langsung termuat tanpa bergantung pada localStorage perangkat guru
+      const injectedScript = document.createElement('script');
+      injectedScript.textContent = `
+        window.__SUBMITTED_SNAPSHOT__ = ${JSON.stringify({
+          state: state,
+          submittedAt: timestamp,
+          groupId: gid,
+          tutor: tutorName,
+          progress: countDone + "/8"
+        })};
+        window.addEventListener('DOMContentLoaded', function() {
+          if (window.__SUBMITTED_SNAPSHOT__) {
+            state = Object.assign(state, window.__SUBMITTED_SNAPSHOT__.state);
+            applyGroupUI();
+            renderScatterPlot();
+            const badge = document.getElementById('progressBadge');
+            if (badge) badge.textContent = window.__SUBMITTED_SNAPSHOT__.progress;
+          }
+        });
+      `;
+      cloneDoc.querySelector('body').appendChild(injectedScript);
+
+      return "<!DOCTYPE html>\n" + cloneDoc.outerHTML;
+    }
+
+    function getSubmissionFileName() {
+      const gid = state.groupId ? `Kelompok_${state.groupId}` : "Kelompok_Belum_Dipilih";
+      const now = new Date();
+      const pad = n => String(n).padStart(2, '0');
+      const dateStr = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}`;
+      return `ELKM_Statistika_XIF8_${gid}_${dateStr}.html`;
+    }
+
+    function downloadFilledHtmlLocal() {
+      const htmlString = buildFilledHtmlSnapshot();
+      const blob = new Blob([htmlString], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = getSubmissionFileName();
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    async function submitToGoogleDrive() {
+      const statusBox = document.getElementById('submitStatusBox');
+      const btn = document.getElementById('btnSubmitDrive');
+      const btnText = document.getElementById('btnSubmitText');
+
+      if (!state.groupId) {
+        showFeedback('submitStatusBox', false, `⚠️ <strong>Pilih Kelompok Terlebih Dahulu!</strong> Ketuk tombol <strong>"Pilih Kelompok"</strong> di pojok kiri atas sebelum mengumpulkan E-LKM.`);
+        toggleGroupDrawer();
+        return;
+      }
+
+      let scriptUrl = APPS_SCRIPT_WEB_APP_URL.trim();
+      if (!scriptUrl || scriptUrl === "PASTE_URL_WEB_APP_APPS_SCRIPT_ANDA_DI_SINI") {
+        const manualUrl = prompt("URL Web App Google Apps Script belum dipasang di kode. Masukkan URL Web App Apps Script (berakhiran /exec) jika ada, atau tekan Batal untuk mengunduh file HTML secara lokal:");
+        if (!manualUrl) {
+          downloadFilledHtmlLocal();
+          showFeedback('submitStatusBox', true, `💾 File <strong>${getSubmissionFileName()}</strong> berhasil diunduh ke perangkatmu sebagai cadangan.`);
+          return;
+        }
+        scriptUrl = manualUrl.trim();
+      }
+
+      const fileName = getSubmissionFileName();
+      const htmlContent = buildFilledHtmlSnapshot();
+      const countDone = Object.keys(state.doneSteps || {}).length;
+      const groupInfo = GROUPS[state.groupId] || { tutor: "-", members: [] };
+      const note = document.getElementById('group_note') ? document.getElementById('group_note').value : "";
+
+      // Kumpulkan ringkasan nilai untuk dicatat juga di Google Sheet jika diinginkan
+      const allInputs = {};
+      document.querySelectorAll('input, select').forEach(el => {
+        if (el.id) allInputs[el.id] = el.value;
+      });
+
+      const payload = {
+        fileName: fileName,
+        mimeType: "text/html",
+        groupId: state.groupId,
+        tutor: groupInfo.tutor,
+        members: groupInfo.members.join(", "),
+        progress: `${Math.min(countDone, 8)}/8`,
+        note: note,
+        answers: allInputs,
+        htmlContent: htmlContent
+      };
+
+      btn.disabled = true;
+      btn.classList.add('opacity-75');
+      btnText.textContent = "Mengirim ke Google Drive Guru...";
+      showFeedback('submitStatusBox', true, `⏳ Sedang mengunggah <strong>${fileName}</strong> ke Google Drive guru, mohon tunggu sebentar...`);
+
+      try {
+        // Menggunakan Content-Type text/plain agar lolos CORS preflight pada Google Apps Script Web App
+        const response = await fetch(scriptUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        let result = {};
+        try {
+          result = await response.json();
+        } catch (err) {
+          // Jika mode opaque/redirect sukses
+          result = { status: "success" };
+        }
+
+        if (result.status === "success" || response.ok) {
+          markStepDone('submitted');
+          showFeedback('submitStatusBox', true, `✅ <strong>Berhasil Dikumpulkan!</strong> File <strong>${fileName}</strong> (Kelompok ${state.groupId} • Progres ${Math.min(countDone, 8)}/8) telah tersimpan di Google Drive Bapak Rifqi.${result.fileUrl ? `<br><a href="${result.fileUrl}" target="_blank" class="underline font-bold">Lihat Bukti File di Drive ↗</a>` : ''}`);
+          btnText.textContent = "✓ Berhasil Dikumpulkan (Kirim Ulang)";
+        } else {
+          throw new Error(result.message || "Gagal menyimpan ke Google Drive.");
+        }
+      } catch (error) {
+        showFeedback('submitStatusBox', false, `⚠️ <strong>Gagal mengirim otomatis ke Drive:</strong> ${error.message}.<br>Jangan khawatir, ketuk tombol <strong>"💾 Unduh Cadangan HTML"</strong> di atas untuk menyimpan file hasil kerja kelompokmu.`);
+        btnText.textContent = "Coba Kirim Ulang ke Drive";
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove('opacity-75');
+      }
+    }
+
+    window.addEventListener('scroll', handleScrollSpy, { passive: true });
+    document.addEventListener('input', saveLocalState);
+    window.addEventListener('DOMContentLoaded', () => {
+      loadLocalState();
+      renderScatterPlot();
+      handleScrollSpy();
+    });
+  </script>
+</body>
+</html>
